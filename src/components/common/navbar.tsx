@@ -2,22 +2,20 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useAuth } from "@/components/context/use-auth";
 import { Button } from "@/components/ui/button";
-import { Modal } from "@/components/ui/modal";
 
 // Sticky top navigation shared by the user and admin areas.
 export function Navbar() {
   const { user, logout } = useAuth();
   const [error, setError] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [confirmLogout, setConfirmLogout] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
   async function handleLogout() {
     try {
       setError("");
       setLoggingOut(true);
+      setMenuOpen(false);
       await logout();
-      setConfirmLogout(false);
       // The router sends the visitor to /auth/login once user becomes null.
     } catch {
       setError("Unable to sign out. Please try again.");
@@ -74,34 +72,16 @@ export function Navbar() {
                 <Button
                   variant="ghost"
                   className="mt-1 w-full justify-start"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    setConfirmLogout(true);
-                  }}
+                  onClick={handleLogout}
+                  disabled={loggingOut}
                 >
-                  Sign out
+                  {loggingOut ? "Signing out…" : "Sign out"}
                 </Button>
               </div>
             )}
           </div>
         </div>
       </div>
-
-      {/* Logout confirmation before the session is cleared. */}
-      <Modal open={confirmLogout} onClose={() => setConfirmLogout(false)} title="Sign out">
-        <p className="text-sm leading-relaxed text-ink-soft">
-          Are you sure you want to log out? You will need to sign in again to access
-          your recipes.
-        </p>
-        <div className="mt-6 flex justify-end gap-3">
-          <Button variant="secondary" onClick={() => setConfirmLogout(false)}>
-            Cancel
-          </Button>
-          <Button onClick={handleLogout} disabled={loggingOut}>
-            {loggingOut ? "Signing out…" : "Yes, sign out"}
-          </Button>
-        </div>
-      </Modal>
     </header>
   );
 }
