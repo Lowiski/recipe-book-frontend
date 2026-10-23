@@ -37,7 +37,6 @@ export function AddRecipeForm({ onSuccess }: AddRecipeFormProps) {
 
   function handleFieldChange(field: keyof RecipeFormValues, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
-    // Clear the field's error as soon as the visitor starts fixing it.
     setErrors((current) => ({ ...current, [field]: undefined }));
   }
 

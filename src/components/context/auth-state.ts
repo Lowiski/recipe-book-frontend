@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import type { User } from "@/services/auth-service";
 
-// The shared sign-in state every component can reach through useAuth().
 export type AuthContextValue = {
   user: User | null;
   ready: boolean;

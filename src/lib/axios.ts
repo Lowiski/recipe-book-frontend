@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// Vite exposes VITE_-prefixed variables from the frontend .env file.
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 if (!baseURL) {
@@ -9,20 +8,14 @@ if (!baseURL) {
   );
 }
 
-// One Axios client shared by every service. withCredentials makes the
-// browser store and send the API's HttpOnly cookies.
 export const http = axios.create({
   baseURL,
   withCredentials: true,
   headers: { "Content-Type": "application/json", Accept: "application/json" },
 });
 
-// CSRF token kept in memory only; it proves the write request comes from
-// the same browser session that fetched the token.
 let csrfToken: string | null = null;
 
-// Concurrent 401s share a single refresh: the API consumes the old
-// refresh token during rotation, so parallel refreshes would fail.
 let refreshPromise: Promise<void> | null = null;
 
 const writeMethods = ["post", "put", "patch", "delete"];
@@ -45,8 +38,6 @@ export function clearCsrfToken() {
 export async function ensureCsrfToken() {
   if (csrfToken) return;
 
-  // Plain axios on purpose: this client's interceptors must not run
-  // while fetching the token itself.
   const response = await axios.get(`${baseURL}/auth/v1/csrf-token`, {
     withCredentials: true,
   });
@@ -55,11 +46,9 @@ export async function ensureCsrfToken() {
 
 async function refreshSession() {
   await http.post("/auth/v1/refresh-token", {});
-  // Cookies changed, so the old CSRF token is stale.
   await ensureCsrfToken();
 }
 
-// Attach the CSRF header to every request that can change data.
 http.interceptors.request.use(async (config) => {
   const method = config.method?.toLowerCase() || "get";
 
@@ -72,7 +61,6 @@ http.interceptors.request.use(async (config) => {
 });
 
 http.interceptors.response.use(
-  // A successful auth request rotates cookies and invalidates the token.
   (response) => {
     if (isAuthEndpoint(response.config.url)) clearCsrfToken();
     return response;
@@ -80,7 +68,6 @@ http.interceptors.response.use(
   async (error) => {
     const request = error.config;
 
-    // Refresh once on 401 only; auth endpoints are excluded to avoid loops.
     if (!request || error.response?.status !== 401) throw error;
     if (request._retry || isAuthEndpoint(request.url)) throw error;
 
@@ -95,12 +82,10 @@ http.interceptors.response.use(
       await refreshPromise;
     } catch (refreshError) {
       clearCsrfToken();
-      // AuthProvider listens for this and signs the visitor out.
       window.dispatchEvent(new Event("auth:expired"));
       throw refreshError;
     }
 
-    // Retry the original request with the refreshed cookies.
     return http(request);
   },
 );

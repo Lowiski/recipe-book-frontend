@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import { useAuth } from "@/components/context/use-auth";
 import { Button } from "@/components/ui/button";
 
-// Sticky top navigation shared by the user and admin areas.
 export function Navbar() {
   const { user, logout } = useAuth();
   const [error, setError] = useState("");
@@ -16,7 +15,6 @@ export function Navbar() {
       setLoggingOut(true);
       setMenuOpen(false);
       await logout();
-      // The router sends the visitor to /auth/login once user becomes null.
     } catch {
       setError("Unable to sign out. Please try again.");
     } finally {
@@ -43,7 +41,7 @@ export function Navbar() {
             </p>
           )}
 
-          {/* Account actions collapse into a menu on small screens. */}
+
           <div className="relative">
             <button
               type="button"

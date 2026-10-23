@@ -13,7 +13,6 @@ type UpdateRecipeFormProps = {
   onSuccess: (updatedRecipe: Recipe) => void;
 };
 
-// Prefill the shared form layout with the existing recipe.
 function toFormValues(recipe: Recipe): RecipeFormValues {
   return {
     name: recipe.name,

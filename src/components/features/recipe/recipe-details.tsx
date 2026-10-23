@@ -8,7 +8,6 @@ import { Tag } from "@/components/ui/tag";
 import { Spinner } from "@/components/ui/spinner";
 import { UpdateRecipeForm } from "./update-recipe-form";
 
-// Loads one recipe and owns its update dialog.
 export function RecipeDetails({ id }: { id: string }) {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);

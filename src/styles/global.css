@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/*
-  Design tokens for the Recipe Book UI.
-  Palette: parchment background, espresso ink, terracotta flame accent.
-*/
 @theme {
   --color-parchment: #faf6f0;
   --color-parchment-deep: #f3ebe1;
@@ -30,12 +26,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Serif display headings give the app a cookbook character. */
 .font-display {
   font-family: var(--font-display);
 }
 
-/* Soft parchment texture behind auth screens. */
 .auth-backdrop {
   background-color: #292524;
   background-image:

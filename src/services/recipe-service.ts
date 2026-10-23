@@ -13,7 +13,6 @@ export type Recipe = {
   instructions: string[];
 };
 
-// Admin list rows also carry the owning account.
 export type AdminRecipe = Recipe & {
   userId: string;
   ownerName: string | null;
@@ -21,9 +20,6 @@ export type AdminRecipe = Recipe & {
 
 export type RecipeInput = Omit<Recipe, "id">;
 export type RecipeUpdate = Partial<RecipeInput>;
-
-// Services unwrap the API envelope (response.data.data.*) so feature
-// components receive plain data.
 
 export async function getRecipesService() {
   const response = await http.get("/recipes/v1/get-recipes");

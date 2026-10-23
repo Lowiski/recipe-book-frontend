@@ -13,7 +13,6 @@ async function getSessionService() {
   return response.data.data.user as User;
 }
 
-// Logs in, then reads the session so the caller receives the full user.
 export async function loginService(email: string, password: string) {
   await ensureCsrfToken();
   await http.post("/auth/v1/login", { email, password });
@@ -32,7 +31,6 @@ export async function logoutService() {
   clearCsrfToken();
 }
 
-// On app start, rotates the cookie session and restores the signed-in user.
 export async function restoreSessionService() {
   await ensureCsrfToken();
   await http.post("/auth/v1/refresh-token", {});

@@ -4,7 +4,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import type { RecipeFormErrors, RecipeFormValues } from "./recipe-form";
 
-// Shared field layout used by both the add and update recipe forms.
 export function RecipeFormFields({
   values,
   errors,

@@ -24,7 +24,6 @@ export const emptyRecipeValues: RecipeFormValues = {
   instructions: "",
 };
 
-// Converts the newline-separated textarea values into the arrays the API expects.
 export function toRecipePayload(values: RecipeFormValues) {
   const lines = (text: string) =>
     text

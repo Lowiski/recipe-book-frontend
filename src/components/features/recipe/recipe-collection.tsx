@@ -12,7 +12,6 @@ import { Spinner } from "@/components/ui/spinner";
 import { RecipeCard } from "./recipe-card";
 import { AddRecipeForm } from "./add-recipe-form";
 
-// Owns the personal collection: fetching, adding, and deleting recipes.
 export function RecipeCollection() {
   const { user, ready } = useAuth();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -41,7 +40,6 @@ export function RecipeCollection() {
 
     loadRecipes();
 
-    // Ignore late responses after sign-out or unmount.
     return function cleanup() {
       active = false;
     };

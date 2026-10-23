@@ -16,20 +16,20 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<HomeRedirect />} />
 
-        {/* Auth pages (redirect away when already signed in) */}
+        
         <Route path="/auth" element={<AuthLayout />}>
           <Route index element={<Navigate to="login" replace />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
         </Route>
 
-        {/* USER area */}
+        
         <Route element={<ProtectedRoute role="USER" />}>
           <Route path="/user" element={<UserHomePage />} />
           <Route path="/recipe/:id" element={<RecipePage />} />
         </Route>
 
-        {/* ADMIN area */}
+        
         <Route element={<ProtectedRoute role="ADMIN" />}>
           <Route path="/admin" element={<AdminPage />} />
         </Route>

@@ -7,7 +7,6 @@ type AdminRecipesTableProps = {
   loading: boolean;
 };
 
-// Presentational only: fetching and errors belong to AdminRecipes.
 export function AdminRecipesTable({ recipes, loading }: AdminRecipesTableProps) {
   return (
     <Table>

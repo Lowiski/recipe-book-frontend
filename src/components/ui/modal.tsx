@@ -12,7 +12,6 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
   if (!open) return null;
 
   return (
-    // Backdrop click closes; clicks inside the panel do not.
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-ink/55 p-0 backdrop-blur-sm sm:items-center sm:p-6"
       onClick={onClose}

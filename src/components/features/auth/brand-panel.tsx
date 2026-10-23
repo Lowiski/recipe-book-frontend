@@ -1,4 +1,3 @@
-// Decorative brand panel shown beside the auth forms on wide screens.
 export function BrandPanel() {
   return (
     <div className="auth-backdrop relative hidden w-full overflow-hidden lg:flex lg:w-[46%] lg:flex-col lg:justify-between lg:p-12">
@@ -34,7 +33,7 @@ export function BrandPanel() {
         )}
       </ul>
 
-      {/* Soft blurred orbs add depth behind the content. */}
+
       <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-flame/30 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-saffron/20 blur-3xl" />
     </div>

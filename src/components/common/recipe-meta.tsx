@@ -5,7 +5,6 @@ type RecipeMetaProps = {
   cookTimeMinutes: number;
 };
 
-// The four recipe facts shown on cards, details, and dialogs.
 export function RecipeMeta({ cuisine, mealType, difficulty, cookTimeMinutes }: RecipeMetaProps) {
   return (
     <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">

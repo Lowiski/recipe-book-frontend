@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { AdminRecipesTable } from "./admin-recipes-table";
 
-// Owns the all-recipes request, the count summary, and Refresh.
 export function AdminRecipes() {
   const [recipes, setRecipes] = useState<AdminRecipe[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +38,6 @@ export function AdminRecipes() {
   );
 
   function handleRefresh() {
-    // Changing the counter reruns the fetching effect.
     setReload((current) => current + 1);
   }
 

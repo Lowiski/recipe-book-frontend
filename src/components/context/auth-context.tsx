@@ -8,12 +8,8 @@ import {
   signupService,
 } from "@/services/auth-service";
 
-// AuthProvider owns the current user and exposes login/signup/logout.
-// It sits above the router in main.tsx so every page can useAuth().
 export function AuthProvider({ children }: { children: ReactNode }) {
-  // null = nobody signed in (from the browser's point of view).
   const [user, setUser] = useState<User | null>(null);
-  // ready=false while the initial session check is still running.
   const [ready, setReady] = useState(false);
 
   const login = useCallback(async (email: string, password: string) => {
@@ -38,7 +34,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let mounted = true;
 
-    // Fired by the Axios client when automatic refresh fails.
     function onExpired() {
       setUser(null);
     }
@@ -49,7 +44,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const currentUser = await restoreSessionService();
         if (mounted) setUser(currentUser);
       } catch {
-        // No valid cookie session: treat the visitor as signed out.
         if (mounted) setUser(null);
       } finally {
         if (mounted) setReady(true);
